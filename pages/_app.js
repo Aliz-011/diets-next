@@ -3,6 +3,7 @@ import { SessionProvider, useSession } from 'next-auth/react';
 import { initialState, reducer, StoreProvider } from '../context/Store';
 import { useRouter } from 'next/router';
 import '../styles/globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (

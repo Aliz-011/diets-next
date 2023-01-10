@@ -4,8 +4,10 @@ import { BiDumbbell, BiMenuAltRight } from 'react-icons/bi';
 import { MdCheck, MdWarning } from 'react-icons/md';
 import { Menu, Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import { useSession, signOut } from 'next-auth/react';
 
 const Navbar = () => {
+  const { data: session } = useSession();
   return (
     <header className="bg-gray-100">
       <nav className="flex px-4 py-4 w-full md:px-16 justify-between items-center">
@@ -93,12 +95,21 @@ const Navbar = () => {
               </Popover>
             </li>
             <li className="cursor-pointer">
-              <Link
-                href={'/login'}
-                className="border-none bg-orange-500 hover:bg-orange-600 text-white px-5 py-1.5 rounded tracking-wider duration-150 ease-out transition"
-              >
-                Login
-              </Link>
+              {session ? (
+                <button
+                  onClick={() => signOut()}
+                  className="border-none bg-orange-500 hover:bg-orange-600 text-white px-5 py-1.5 rounded tracking-wider duration-150 ease-out transition"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  href={'/login'}
+                  className="border-none bg-orange-500 hover:bg-orange-600 text-white px-5 py-1.5 rounded tracking-wider duration-150 ease-out transition"
+                >
+                  Login
+                </Link>
+              )}
             </li>
           </motion.ul>
         </Menu>

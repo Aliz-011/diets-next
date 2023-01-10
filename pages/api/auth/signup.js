@@ -35,16 +35,16 @@ async function handler(req, res) {
   }
 
   const newUser = new User({
-    username,
     firstName,
     lastName,
     email,
+    username,
     password: bcryptjs.hashSync(password, 10),
   });
 
   const user = await newUser.save();
   await db.disconnect();
-  res.status(201).json({ ...user, message: 'user created' });
+  return res.status(201).json({ ...user, message: 'user created' });
 }
 
 export default handler;
