@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { BiDumbbell } from 'react-icons/bi';
+import { BiDumbbell, BiMenuAltRight } from 'react-icons/bi';
 import { MdCheck, MdWarning } from 'react-icons/md';
 import { Menu, Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
@@ -100,6 +100,10 @@ const Navbar = () => {
               </Link>
             </li>
           </motion.ul>
+        </Menu>
+
+        <Menu as="div" className="flex items-center md:hidden">
+          <BiMenuAltRight className="text-xl" />
         </Menu>
       </nav>
     </header>

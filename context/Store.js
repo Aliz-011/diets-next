@@ -1,32 +1,39 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer, useContext } from 'react';
 
 const StoreContext = createContext();
 
-const initialState = {
+export const initialState = {
   user: null,
+  mealPlan: null,
+  workoutPlan: null,
 };
 
 export const actionType = {
   SET_USER: 'SET_USER',
+  SET_MEAL_PLAN: 'SET_MEAL_PLAN',
+  SET_WORKOUT_PLAN: 'SET_WORKOUT_PLAN',
 };
 
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
   switch (action.type) {
     case actionType.SET_USER:
       return { ...state, user: action.user };
+    case actionType.SET_MEAL_PLAN:
+      return { ...state, mealPlan: action.mealPlan };
+    case actionType.SET_WORKOUT_PLAN:
+      return { ...state, workoutPlan: action.workoutPlan };
 
     default:
       return state;
   }
 };
 
-export function StoreProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const value = { state, dispatch };
-
+export function StoreProvider({ children, reducer, initialState }) {
   return (
-    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
+    <StoreContext.Provider value={useReducer(reducer, initialState)}>
+      {children}
+    </StoreContext.Provider>
   );
 }
 
-export default StoreContext;
+export const useStateValue = () => useContext(StoreContext);
