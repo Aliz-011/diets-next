@@ -71,6 +71,7 @@ const Navbar = () => {
                           </div>
                         </div>
                       </div>
+
                       <div className="mt-4 grid gap-4 grid-cols-1 overflow-hidden">
                         <div className="flex">
                           <div className="rounded-full shrink-0 bg-red-200 h-8 w-8 flex items-center justify-center">
