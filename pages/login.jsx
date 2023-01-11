@@ -35,7 +35,7 @@ const Login = () => {
   };
   return (
     <section>
-      <div className="h-[89vh] w-full">
+      <div className="h-[89vh] w-full px-4 md:px-16">
         <ToastContainer
           position="top-center"
           autoClose={5000}

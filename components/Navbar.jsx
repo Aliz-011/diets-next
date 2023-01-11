@@ -30,7 +30,7 @@ const Navbar = () => {
             </li>
             <li className="cursor-pointer">
               <a href="#" className="font-medium">
-                Exercise
+                Exercises
               </a>
             </li>
             <li className="cursor-pointer flex items-center">
@@ -98,14 +98,16 @@ const Navbar = () => {
               {session ? (
                 <button
                   onClick={() => signOut()}
-                  className="border-none bg-orange-500 hover:bg-orange-600 text-white px-5 py-1.5 rounded tracking-wider duration-150 ease-out transition"
+                  class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
                 >
-                  Logout
+                  <span class="relative px-5 py-1.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-opacity-0">
+                    Logout
+                  </span>
                 </button>
               ) : (
                 <Link
                   href={'/login'}
-                  className="border-none bg-orange-500 hover:bg-orange-600 text-white px-5 py-1.5 rounded tracking-wider duration-150 ease-out transition"
+                  className="border-none bg-orange-400 hover:bg-orange-600 text-white px-5 py-1.5 rounded tracking-wider duration-150 ease-out transition"
                 >
                   Login
                 </Link>
