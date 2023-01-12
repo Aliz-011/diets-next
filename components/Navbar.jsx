@@ -9,30 +9,25 @@ import { useSession, signOut } from 'next-auth/react';
 const Navbar = () => {
   const { data: session } = useSession();
   return (
-    <header className="bg-gray-100">
+    <header className="font-poppins">
       <nav className="flex px-4 py-4 w-full md:px-16 justify-between items-center">
-        <Link href="/" className="flex items-center font-bold text-2xl">
+        <motion.a
+          href="/"
+          className="flex items-center font-bold text-2xl"
+          initial={{ y: -200 }}
+          animate={{ y: 0 }}
+        >
           <p>diets</p>
           <span className="text-orange-500">app</span>
-        </Link>
+        </motion.a>
 
         <Menu as="div" className="flex items-center gap-6">
           <motion.ul
             initial={{ opacity: 0, x: 200 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 200 }}
-            className="hidden md:flex items-center gap-6 h-full"
+            className="hidden md:flex items-center gap-6"
           >
-            <li className="cursor-pointer">
-              <a href="#" className="font-medium">
-                Home
-              </a>
-            </li>
-            <li className="cursor-pointer">
-              <a href="#" className="font-medium">
-                Exercises
-              </a>
-            </li>
             <li className="cursor-pointer flex items-center">
               <Popover className="relative">
                 <Popover.Button className="flex self-center">
@@ -94,22 +89,28 @@ const Navbar = () => {
                 </Transition>
               </Popover>
             </li>
+
+            <li className="h-4 w-0.5 bg-gray-300" />
+
+            <li className="cursor-pointer font-light">
+              <h2>aryatangkas56@gmail.com</h2>
+            </li>
+
+            <li className="h-4 w-0.5 bg-gray-300" />
+
             <li className="cursor-pointer">
               {session ? (
                 <button
                   onClick={() => signOut()}
-                  class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+                  className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
                 >
-                  <span class="relative px-5 py-1.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-opacity-0">
+                  <span className="relative px-5 py-1.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-opacity-0">
                     Logout
                   </span>
                 </button>
               ) : (
-                <Link
-                  href={'/login'}
-                  className="border-none bg-orange-400 hover:bg-orange-600 text-white px-5 py-1.5 rounded tracking-wider duration-150 ease-out transition"
-                >
-                  Login
+                <Link href={'/login'} className="text-orange-400">
+                  Diet Now
                 </Link>
               )}
             </li>
