@@ -1,15 +1,24 @@
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, Reorder } from 'framer-motion';
 import { BiDumbbell, BiMenuAltRight } from 'react-icons/bi';
 import { MdCheck, MdWarning } from 'react-icons/md';
 import { Menu, Popover, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 
+const exercises = [
+  { id: 1, title: 'Push-ups', reps: 15, sets: 3, statusDone: 'false' },
+  { id: 2, title: 'Pull-ups', reps: 10, sets: 2, statusDone: 'true' },
+  { id: 3, title: 'Bench Press', reps: 12, sets: 2, statusDone: 'false' },
+];
+
 const Navbar = () => {
+  const [items, setItems] = useState(exercises);
+
   const { data: session } = useSession();
+
   return (
-    <header className="font-poppins">
+    <header className=" relative z-50">
       <nav className="flex px-4 py-4 w-full md:px-16 justify-between items-center">
         <motion.a
           href="/"
@@ -46,44 +55,46 @@ const Navbar = () => {
                     <div className="relative p-3">
                       <div className="flex justify-between items-center w-full">
                         <p className="text-gray-700 font-medium">
-                          Notification
+                          Workout to-do
                         </p>
                         <a className="text-sm text-orange-500" href="#">
                           Mark all as done
                         </a>
                       </div>
 
-                      <div className="mt-4 grid gap-4 grid-cols-1 overflow-hidden">
-                        <div className="flex">
-                          <div className="rounded-full shrink-0 bg-green-200 h-8 w-8 flex items-center justify-center">
-                            <MdCheck className="h-4 w-4 text-green-600" />
-                          </div>
-                          <div className="ml-4">
-                            <p className="font-medium text-gray-700">
-                              Push-ups
-                            </p>
-                            <p className="font-sm text-gray-500 truncate">
-                              15 reps - 3 sets
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mt-4 grid gap-4 grid-cols-1 overflow-hidden">
-                        <div className="flex">
-                          <div className="rounded-full shrink-0 bg-red-200 h-8 w-8 flex items-center justify-center">
-                            <MdWarning className="h-4 w-4 text-red-600" />
-                          </div>
-                          <div className="ml-4">
-                            <p className="font-medium text-gray-700">
-                              Pull-ups
-                            </p>
-                            <p className="font-sm text-gray-500 truncate">
-                              10 reps - 2 sets
-                            </p>
-                          </div>
-                        </div>
-                      </div>
+                      <Reorder.Group
+                        axis="y"
+                        values={items}
+                        onReorder={setItems}
+                      >
+                        {items.map((item) => (
+                          <Reorder.Item
+                            key={item.id}
+                            value={item}
+                            className="mt-4 grid gap-4 grid-cols-1 overflow-hidden"
+                          >
+                            <div className="flex">
+                              {item.statusDone === 'true' ? (
+                                <div className="rounded-full shrink-0 bg-green-200 h-8 w-8 flex items-center justify-center">
+                                  <MdCheck className="h-4 w-4 text-green-600" />
+                                </div>
+                              ) : (
+                                <div className="rounded-full shrink-0 bg-red-200 h-8 w-8 flex items-center justify-center">
+                                  <MdWarning className="h-4 w-4 text-red-600" />
+                                </div>
+                              )}
+                              <div className="ml-4">
+                                <p className="font-medium text-gray-700">
+                                  {item.title}
+                                </p>
+                                <p className="font-sm text-gray-500 truncate">
+                                  {item.reps} reps - {item.sets} sets
+                                </p>
+                              </div>
+                            </div>
+                          </Reorder.Item>
+                        ))}
+                      </Reorder.Group>
                     </div>
                   </Popover.Panel>
                 </Transition>
