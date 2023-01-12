@@ -1,5 +1,6 @@
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
+import Exercises from '../components/Exercises';
 import Hero from '../components/Hero';
 import Service from '../components/Service';
 
@@ -15,6 +16,7 @@ export default function Home() {
       </Head>
       <Hero />
       <Service />
+      <Exercises />
     </div>
   );
 }

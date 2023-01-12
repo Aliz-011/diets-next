@@ -1,38 +1,16 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 
-const FetchData = (url, options) => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get(url, options);
-        setData(res.data);
-      } catch (error) {
-        setError(error);
-      }
-      setLoading(false);
-    };
-
-    fetchData();
-  }, [url]);
-
-  const reFetch = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(url);
-      setData(res.data);
-    } catch (error) {
-      setError(error);
-    }
-    setLoading(false);
-  };
-
-  return { data, loading, error, reFetch };
+export const exerciseOptions = {
+  method: 'GET',
+  headers: {
+    'X-RapidAPI-Key': '360268451bmsh78a50ce15f95870p199e69jsn1b07e919f0ab',
+    'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com',
+  },
 };
 
-export default FetchData;
+export const fetchData = async (url, options) => {
+  const res = await axios.get(url, options);
+  const data = await res.data;
+
+  return data;
+};
