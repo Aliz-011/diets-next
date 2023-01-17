@@ -6,7 +6,7 @@ const Service = () => {
   return (
     <section className="w-screen my-24 px-4 md:px-16 py-5">
       <div className="flex items-center justify-center mb-20">
-        <h2 className="font-bold text-2xl text-orange-400">Our services</h2>
+        <h2 className="font-bold text-orange-400 text-3xl">Our Services</h2>
       </div>
 
       <motion.div

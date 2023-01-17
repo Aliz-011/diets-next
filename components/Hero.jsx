@@ -4,12 +4,21 @@ import Link from 'next/link';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { BiStar } from 'react-icons/bi';
+import { fetchData } from '../hooks/fetchData';
+import { actionType, useStateValue } from '../context/Store';
 
 const Hero = () => {
   const { data: session } = useSession();
+  const [state, dispatch] = useStateValue();
 
-  const generateMealPlan = () => {
-    //
+  const generateMealPlan = async () => {
+    // const response = await fetchData(
+    //   `https://api.spoonacular.com/mealplanner/generate?apiKey=78f8ff209181490091bfe386fd7ecdcf&timeFrame=week&targetCalories=14000`
+    // );
+    // if (response) {
+    //   localStorage.setItem('mealPlan', JSON.stringify(response));
+    //   dispatch({ type: actionType.SET_MEAL_PLAN, mealPlan: response });
+    // }
   };
 
   return (

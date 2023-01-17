@@ -17,6 +17,18 @@ const Navbar = () => {
 
   const { data: session } = useSession();
 
+  const marksAllAsDone = () => {
+    items.map((item) => {
+      if (item.statusDone === 'false') {
+        item.statusDone = 'true';
+      }
+    });
+  };
+
+  const marksAsDone = (id) => {
+    console.log(1);
+  };
+
   return (
     <header className=" relative z-50">
       <nav className="flex px-4 py-4 w-full md:px-16 justify-between items-center">
@@ -35,7 +47,7 @@ const Navbar = () => {
             initial={{ opacity: 0, x: 200 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 200 }}
-            className="hidden md:flex items-center gap-6"
+            className="hidden sm:flex items-center gap-6"
           >
             <li className="cursor-pointer flex items-center">
               <Popover className="relative">
@@ -57,9 +69,12 @@ const Navbar = () => {
                         <p className="text-gray-700 font-medium">
                           Workout to-do
                         </p>
-                        <a className="text-sm text-orange-500" href="#">
+                        <button
+                          onClick={marksAllAsDone}
+                          className="text-sm font-medium text-orange-500 hover:text-orange-600"
+                        >
                           Mark all as done
-                        </a>
+                        </button>
                       </div>
 
                       <Reorder.Group
@@ -67,33 +82,34 @@ const Navbar = () => {
                         values={items}
                         onReorder={setItems}
                       >
-                        {items.map((item) => (
-                          <Reorder.Item
-                            key={item.id}
-                            value={item}
-                            className="mt-4 grid gap-4 grid-cols-1 overflow-hidden"
-                          >
-                            <div className="flex">
-                              {item.statusDone === 'true' ? (
-                                <div className="rounded-full shrink-0 bg-green-200 h-8 w-8 flex items-center justify-center">
-                                  <MdCheck className="h-4 w-4 text-green-600" />
+                        {items &&
+                          items.map((item) => (
+                            <Reorder.Item
+                              key={item.id}
+                              value={item}
+                              className="mt-4 grid gap-4 grid-cols-1 overflow-hidden"
+                            >
+                              <div className="flex">
+                                {item.statusDone === 'true' ? (
+                                  <div className="rounded-full shrink-0 bg-green-200 h-8 w-8 flex items-center justify-center">
+                                    <MdCheck className="h-4 w-4 text-green-600" />
+                                  </div>
+                                ) : (
+                                  <div className="rounded-full shrink-0 bg-red-200 h-8 w-8 flex items-center justify-center">
+                                    <MdWarning className="h-4 w-4 text-red-600" />
+                                  </div>
+                                )}
+                                <div className="ml-4">
+                                  <p className="font-medium text-gray-700">
+                                    {item.title}
+                                  </p>
+                                  <p className="font-sm text-gray-500 truncate">
+                                    {item.reps} reps - {item.sets} sets
+                                  </p>
                                 </div>
-                              ) : (
-                                <div className="rounded-full shrink-0 bg-red-200 h-8 w-8 flex items-center justify-center">
-                                  <MdWarning className="h-4 w-4 text-red-600" />
-                                </div>
-                              )}
-                              <div className="ml-4">
-                                <p className="font-medium text-gray-700">
-                                  {item.title}
-                                </p>
-                                <p className="font-sm text-gray-500 truncate">
-                                  {item.reps} reps - {item.sets} sets
-                                </p>
                               </div>
-                            </div>
-                          </Reorder.Item>
-                        ))}
+                            </Reorder.Item>
+                          ))}
                       </Reorder.Group>
                     </div>
                   </Popover.Panel>
@@ -103,19 +119,19 @@ const Navbar = () => {
 
             <li className="h-4 w-0.5 bg-gray-300" />
 
-            <li className="cursor-pointer font-light">
+            <li className="hidden md:block cursor-pointer font-light">
               <h2>aryatangkas56@gmail.com</h2>
             </li>
 
-            <li className="h-4 w-0.5 bg-gray-300" />
+            <li className="hidden md:block h-4 w-0.5 bg-gray-300" />
 
             <li className="cursor-pointer">
               {session ? (
                 <button
                   onClick={() => signOut()}
-                  className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+                  className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 "
                 >
-                  <span className="relative px-5 py-1.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-opacity-0">
+                  <span className="relative px-5 py-1.5 transition-all ease-in duration-75 bg-white rounded-sm group-hover:bg-opacity-0">
                     Logout
                   </span>
                 </button>
@@ -128,7 +144,7 @@ const Navbar = () => {
           </motion.ul>
         </Menu>
 
-        <Menu as="div" className="flex items-center md:hidden">
+        <Menu as="div" className="flex items-center sm:hidden">
           <BiMenuAltRight className="text-xl" />
         </Menu>
       </nav>

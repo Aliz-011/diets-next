@@ -1,8 +1,10 @@
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
-import Exercises from '../components/Exercises';
+import SearchExercises from '../components/SearchExercises';
 import Hero from '../components/Hero';
 import Service from '../components/Service';
+import { useState } from 'react';
+import Exercises from '../components/Exercises';
 
 export default function Home() {
   const { data: session } = useSession();
@@ -16,6 +18,7 @@ export default function Home() {
       </Head>
       <Hero />
       <Service />
+      <SearchExercises />
       <Exercises />
     </div>
   );
